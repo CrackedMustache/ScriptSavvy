@@ -1,40 +1,28 @@
-const alertArray = [];
+import { debugAdd, alertLaunch, alertNow } from "./debug.js"
 
-function alertAdd(input) {
-    if (alertArray) console.log('falsy')
-    const newInput = `\\n${input}`
+// ## get localstorage example
+//
+//const getStorage = chrome.storage.local.get('texty').then(({ texty }) => {
+//    textArea.innerHTML = texty
+//});
 
-    alertArray.push(newInput)
-}
+// ## set localstorage example
+//
+//const texty = "asdf1234"
+//const localSetExample = chrome.storage.local.set({texty: texty});
 
-const textArea = document.getElementById('text-area__main')
+// ## eventListenerExample
+//
+//textArea.addEventListener('change', (response) => {
+//    window.alert(String(response))
+//})
 
-
-const oldText = chrome.storage.local.get('texty').then(({ texty }) => {
-    textArea.innerHTML = texty
-});
-
-//textArea.innerHTML=oldText
-
-
-
-/*
-const button = document.getElementById('btn_898')
-
-button.addEventListener('click', () => {
-    add("YES!")
-})
-*/
-textArea.addEventListener('Inputs', (i) => {
-    add(i)
-})
+// ## document.getElement example
+//
+// const textArea = document.getElementById('text-area__main')
 
 
 
 
-const texty = "asdf1234"
-const newText = chrome.storage.local.set({texty: texty})
 
-if (alertArray.length > 0) {
-    window.alert(alertArray)
-}
+alertLaunch()

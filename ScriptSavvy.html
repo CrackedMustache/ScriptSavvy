@@ -1,11 +1,38 @@
 <html>
     <head>
-        <link rel="stylesheet" href="style.css" ></link>
+        <link rel="stylesheet" href="style.css" scoped ></link>
+        <link rel="stylesheet" href="global-styles.css" ></link>
     </head>
     <body>
         <div class="app" >
-            <header class="header" >
-                <h1 id="title" >ScriptSavvy</h1>
+
+            <header class="header-grid" >
+                <div class="header-grid__1 header-grid__item" >
+
+                    <div class="header-grid__scripts_dropdown" >
+                        
+                        <select class="scripts_dropdown__inner" name="Scripts" >
+                            <option>Script 1
+                            </option>
+                            <option>Script 2
+                            </option>
+                        </select>
+
+                    </div>     
+                </div>
+                <div class="header-grid__2 header-grid_item">
+
+                    <h1 style="margin: 0;" >ScriptSavvy</h1>
+                                    
+                </div>
+                <div class="header-grid__3 header-grid_item">
+                    
+                    <div class="header-grid_3_inner" >
+                        <p>New Script</p>
+                        <img src="./icons/plus-circle.svg" ></img>
+                    </div>
+    
+                </div>
             </header>
 
             <textarea class="script_input" rows="5" columns="40" id="text-area__main" ></textarea>
@@ -15,9 +42,8 @@
                 <button>RIGHT</button>
                 <button>PAUSE</button>
             </div>
-            
-            
+
         </div>
-        <script src="script.js" ></script>
+        <script scoped src="script.js" type="module" ></script>
     </body>
 </html>

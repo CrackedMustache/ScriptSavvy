@@ -1,0 +1,29 @@
+:root {
+    --box-radius: 6px;
+}
+
+.xmark-btn {
+    background-image: url('.icons/xmark.svg')
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.strip_background {
+    background: transparent;
+    border: none;
+}
+
+img {
+    height: 24px;
+    width: 24px;
+}
+
+.white {
+    color: white;
+}
+
+.black {
+    color: black;
+}
