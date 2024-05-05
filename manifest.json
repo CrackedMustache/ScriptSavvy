@@ -1,0 +1,14 @@
+{
+    "name": "ScriptSavvy",
+    "description": "DOM script runner with control features",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "ScriptSavvy.html",
+        "default_icon": "./icons/ScriptSavvy.png"
+    },
+    "permissions": [
+        "storage",
+        "activeTab"
+    ]
+}
