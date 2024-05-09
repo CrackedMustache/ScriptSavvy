@@ -4,7 +4,7 @@
         <link rel="stylesheet" href="global-styles.css" ></link>
     </head>
     <body>
-        <div class="app" >
+        <div class="app" id="ss_app">
 
             <header class="header" id="scriptsavvy_header">
 
@@ -21,7 +21,7 @@
 
                 <h1 class="title" id="title" style="margin: 0;" >ScriptSavvy</h1>
                             
-                <div class="new_script" >
+                <div class="new_script" id="ss_new-script" >
                     New Script
                     
                     <img src="./icons/plus-circle.svg" ></img>
@@ -29,15 +29,9 @@
 
             </header>
 
-            <div class="header_dropdown" id="scriptsavvy_dropdown" >
-                <div>
-                    asdfasdf!!
-                </div>
-            </div>
-
 
             <div class="main" >
-                <textarea class="text-area_main" id="text-area__main" ></textarea>
+                <textarea class="text-area_main" id="text-area_main" ></textarea>
             </div>            
 
             <footer class="controls" >
@@ -47,7 +41,7 @@
             </footer>
 
         </div>
-        <script src="script.js" type="module" ></script>
-        <script src="dropdown.js" type="module" ></script>
+        <script src="script.js" type="module" defer></script>
+        <script src="dropdown.js" type="module" defer></script>
     </body>
 </html>

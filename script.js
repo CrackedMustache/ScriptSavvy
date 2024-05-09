@@ -21,16 +21,6 @@ import { debugAdd, alertLaunch, alertNow } from "./debug.js"
 //
 // const textArea = document.getElementById('text-area__main')
 
-const title = document.getElementById('title')
 
-
-const header = document.getElementById("scriptsavvy_header");
-
-const dropdown = document.getElementById("scriptsavvy_dropdown");
-const headerRect = header.getBoundingClientRect();
-const dropdownTop = headerRect.top + headerRect.height + window.scrollY;
-
-console.log(headerRect.top, headerRect.height
-)
 
 alertLaunch()
