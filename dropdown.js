@@ -1,11 +1,13 @@
 import {
   setAttributes,
-  attributeMap,
   spawnElement,
   getElementById,
+  removeElementById,
 } from "./helpers.js";
 
-export const app = document.getElementById("ss_app");
+import { loadedScripts, app } from "./script.js";
+
+let dropdownActive = false;
 
 export const header = document.getElementById("scriptsavvy_header");
 
@@ -15,14 +17,15 @@ export const dropdownTrigger = document.getElementById(
 
 export const backdropAttrs = new Map([
   [
-    "style",
+    "id",
     {
-      top: "0",
-      left: "0",
-      right: "0",
-      bottom: "0",
-      position: "absolute",
-      zIndex: "5",
+      noKey: "ss_backdrop",
+    },
+  ],
+  [
+    "className",
+    {
+      noKey: "ss_backdrop",
     },
   ],
 ]);
@@ -31,8 +34,6 @@ const dropdownContAttrs = new Map([
   [
     "style",
     {
-      position: "absolute",
-      zIndex: "12",
       top: `${
         header.getBoundingClientRect().top +
         header.getBoundingClientRect().height -
@@ -40,41 +41,18 @@ const dropdownContAttrs = new Map([
       }`,
     },
   ],
-]);
-
-export const dropdownAttrs = new Map([
   [
-    "style",
+    "className",
     {
-      backgroundColor: "black",
-      marginTop: "4px",
+      noKey: "ss_dropdown-container",
     },
   ],
 ]);
-
-let dropdownActive = false;
-
-function setDropdownProperties(dropdownCont, dropdown) {
-  setAttributes(dropdownCont, [
-    ...dropdownContAttrs,
-    ...new Map([["id", { rootLevel: "ss_dropdown" }]]),
-  ]);
-  setAttributes(dropdown, dropdownAttrs);
-  setAttributes(
-    dropdown,
-    new Map([["innerHTML", { rootLevel: "asdfasdfasdf" }]])
-  );
-
-  dropdownCont.appendChild(dropdown);
-  dropdownTrigger.appendChild(dropdownCont);
-}
 
 function addBackdrop() {
   const backDrop = spawnElement("div");
 
   setAttributes(backDrop, backdropAttrs);
-
-  backDrop.id = "ss_backdrop";
 
   backDrop.addEventListener("mouseover", () => {
     removeDropdown();
@@ -83,23 +61,45 @@ function addBackdrop() {
   app.appendChild(backDrop);
 }
 
-function removeDropdown() {
-  if (!dropdownActive) return;
-  document.getElementById("ss_dropdown").remove();
-  document.getElementById("ss_backdrop").remove();
+function createDropdownItems(dropdown) {
+  for (let i = 0; i < loadedScripts.length; i++) {
+    const newListItem = spawnElement("p");
 
-  dropdownActive = false;
+    setAttributes(newListItem, "id", `dropdown-element_${i}`);
+    setAttributes(newListItem, "innerHTML", loadedScripts[i][0]);
+    setAttributes(newListItem, "className", "ss_dropdown-item");
+
+    console.log("setAttributes worked!");
+    dropdown.appendChild(newListItem);
+  }
 }
 
-function createDropdown() {
+export function createDropdown() {
   if (dropdownActive) return;
 
-  const dropdownContainer = document.createElement("div");
-  const dropdown = document.createElement("div");
-  setDropdownProperties(dropdownContainer, dropdown);
+  const dropdownCont = spawnElement("div");
+  const dropdown = spawnElement("div");
+
+  setAttributes(dropdownCont, dropdownContAttrs);
+
+  setAttributes(dropdown, "className", "ss_dropdown");
+  setAttributes(dropdown, "id", "ss_dropdown");
+
+
+  dropdownTrigger.appendChild(dropdownCont);
+  dropdownCont.appendChild(dropdown);
+  createDropdownItems(dropdown);
 
   addBackdrop();
+
   dropdownActive = true;
 }
 
-dropdownTrigger.addEventListener("mouseover", createDropdown);
+export function removeDropdown() {
+  if (!dropdownActive) return;
+
+  removeElementById("ss_dropdown");
+  removeElementById("ss_backdrop");
+
+  dropdownActive = false;
+}
