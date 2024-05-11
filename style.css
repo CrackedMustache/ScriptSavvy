@@ -88,6 +88,12 @@ body {
     right: 10px;
 }
 
+.ss_dd_appear_y {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: all;
+}
 
 .ss_dd_container_inner {
     border-radius: 4px;
@@ -104,11 +110,7 @@ body {
     scrollbar-gutter: auto;
 }
 
-.ss_dd_appear_y {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    pointer-events: all;
+.ss_dd_more-container_inner {
 }
 
 .ss_dd-menu {
@@ -120,6 +122,10 @@ body {
 }
 
 .ss_dd_script-menu {
+
+}
+
+.ss_dd-more-menu {
 
 }
 
@@ -152,6 +158,10 @@ body {
    
 }
 
+.ss_dd_more-item {
+
+}
+
 .ss_backdrop {
     top: 0;
     left: 0;
@@ -159,15 +169,6 @@ body {
     bottom: 0;
     position: absolute;
     z-index: 5;
-}
-
-.header_dropdown {
-    position: absolute;
-    top: 20px;
-    z-index: 10;
-
-    display: flex;
-    flex-direction: column;
 }
 
 .main {
