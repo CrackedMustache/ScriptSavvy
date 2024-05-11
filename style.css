@@ -155,11 +155,10 @@ body {
 }
 
 .ss_dd_script-item {
-   
 }
 
 .ss_dd_more-item {
-
+    text-align: right;
 }
 
 .ss_backdrop {

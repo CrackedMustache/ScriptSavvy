@@ -21,7 +21,8 @@ export let SSLocalStorage;
 
 export function loadScript(scriptName) {
   setAttributes(selectScriptBtn, {
-    className: "ss_dd_select-script_button ss_dd_select-script_selected",
+    className:
+      "ss_dd_select-script_button ss_dd_trigger-button ss_dd_select-script_selected ",
   });
   setAttributes(selectScriptBtn.querySelector('p'), [{ innerHTML: scriptName }]);
 }
