@@ -1,7 +1,8 @@
 body {
     width: 540px;
     font-weight: 500;
-    height: 320px;
+    height: 360px;
+    background-color: var(--dark-background);
 }
 
 .app {
@@ -28,38 +29,97 @@ body {
     margin: 0;
 }
 
-#dropdown-element_0 {
-    margin: 2px;
-}
-
 .select_script {
+    font-size: 15px;
     height: 24px;
-    max-width: 160px;
+    max-width: 260px;
     z-index: 10;
+    gap: 5px;
 
     display: flex;
-    overflow: hidden;
-    gap: 5px;
 
     justify-content: center;
     align-items: center;
+    user-select: none;
 }
 
-.ss_dropdown-container {
-    border-radius: 6px;
+.script_selected p {
+    text-decoration-line: underline;
+}
 
+.script_unselected #ss_svg-left {
+    visibility: visible;
+}
+
+.script_unselected #ss_svg-left {
+    visibility: hidden;
+}
+
+
+.script_selected #ss_svg-right{
+    transform: rotate(90deg);
+}
+
+.ss_dropdown-container-outer {
+    left: 10px;
     position: absolute;
     z-index: 12;
+    padding-top: 8px;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity 0.15s, transform 0.20s, visibility 0.15s;
+}
+
+.ss_dropdown-container-inner {
+    border-radius: 4px;
+    max-height: 200px;
+    border: rgb(84, 84, 84) solid 1px;
+    padding: 5px 0 5px 5px;
+    box-sizing: border-box;
+    background-color: var(--dark-background);
+    overflow-y: scroll;
+    scrollbar-color: var(--dark-weak) var(--dark-background);
+    scrollbar-gutter: auto;
+}
+
+
+.appear_y {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: all;
 }
 
 .ss_dropdown {
-    background-color: black;
-    margin-top: 4px;
-    padding: 2px;
+    display: inline-flex;
+    flex-direction: column;
+    padding: 5px;
 }
 
 .ss_dropdown-item {
+    margin-top: 5px;
+    padding: 4px 2px;
+    border-bottom: rgb(84, 84, 84) solid 1px;
+    font-size: 14px;
+    min-width: fit-content;
 
+    cursor: pointer;
+
+    transition-duration: 0.15s;
+    transition-property: color;
+
+    &:first-child {
+        padding-top: 0;
+        margin-top: 0;
+    }
+
+}
+
+.ss_dropdown-item:hover {
+color: rgb(181, 181, 181)
 }
 
 .ss_backdrop {
@@ -71,9 +131,6 @@ body {
     z-index: 5;
 }
 
-.title {
-    font-size: 20px;
-}
 
 .new_script {
     display: flex;
@@ -90,8 +147,7 @@ body {
     display: flex;
     flex-direction: column;
 
-    transform: translateY(-4px);
-    visibility: hidden;
+    
 }
 
 .main {
@@ -104,7 +160,7 @@ body {
 
 .text-area_main {
     width: 100%;
-    height: 180px;
+    height: 250px;
 
     border-radius: 8px;
     resize: vertical;

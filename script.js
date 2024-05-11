@@ -1,62 +1,66 @@
-import { debugAdd, alertLaunch, alertNow } from "./debug.js";
-import { getElementById } from "./helpers.js";
-import { createDropdown, removeDropdown } from "./dropdown.js";
+import { alertLaunch } from "./debug.js";
+import { getElementById, setAttributes } from "./helpers.js";
+import {
+  createDropdown,
+  showDropdown,
+  createDropdownItems,
+} from "./dropdown.js";
 
-export const dropdownTrigger = document.getElementById(
-  "scriptsavvy_dropdown-trigger"
+export const selectScriptBtn = document.getElementById(
+  "ss_dropdown-trigger"
 );
 export const app = document.getElementById("ss_app");
+const textArea = getElementById("text-area_main");
+const saveButton = getElementById("ss_save-prompt");
+let selectedToggle = false;
 
 // ## get localstorage example
 //
 
-export let loadedScripts = {};
+export let SSLocalStorage;
+const toggleButton = getElementById("toggle_selected");
+toggleButton.addEventListener("click", toggleSelected);
 
-chrome.storage.local.get("scripts").then(({ scripts }) => {
-  loadedScripts = scripts;
-  console.log("in call", scripts, loadedScripts);
-});
+function toggleSelected() {
 
-console.log(loadedScripts);
+  if (selectedToggle) {
+    selectScriptBtn.className = "select_script script_unselected";
+  } else {
+    selectScriptBtn.className = "select_script script_selected";
+  }
 
-// ## set localstorage example
-//
-//const texty = "asdf1234"
-//const localSetExample = chrome.storage.local.set({texty: texty});
+  selectedToggle = !selectedToggle
+}
 
-// ## eventListenerExample
-//
-//textArea.addEventListener('change', (response) => {
-//    window.alert(String(response))
-//})
 
-// ## document.getElement example
-//
-// const textArea = document.getElementById('text-area__main')
+export function loadScript(scriptName) {
+  setAttributes(selectScriptBtn, { className: "select_script script_selected" });
+  setAttributes(selectScriptBtn.querySelector('p'), [{ innerHTML: scriptName }]);
+}
 
-const textArea = getElementById("text-area_main");
-
-const saveButton = getElementById("ss_save-prompt");
 
 saveButton.addEventListener("click", () => {
   if (textArea.value == null || textArea.value.length < 3) return;
   const input = prompt("Enter a name for the script!");
-  loadedScripts[input] = textArea.value;
 
-  chrome.storage.local.set({
-    'scripts': loadedScripts}, function() {
-      console.log(`Value set to: ${loadedScripts}`)
-    });
+  const newObj = { [input]: textArea.value };
+  SSLocalStorage.scripts.push(newObj);
 
+  localStorage["ScriptSavvy"] = JSON.stringify(SSLocalStorage);
+
+  createDropdownItems();
 });
 
-function initialize() {
-  chrome.storage.local.get("scripts").then(({ scripts }) => {
-    loadedScripts = scripts;
-    console.log("in call", scripts, loadedScripts);
-  });
+async function initialize() {
+  try {
+    SSLocalStorage = await JSON.parse(localStorage["ScriptSavvy"]);
+  } catch (error) {
+    console.log("Error:", error);
+  }
 
-  dropdownTrigger.addEventListener("mouseover", createDropdown);
+  createDropdown();
+
+  selectScriptBtn.addEventListener("mouseenter", showDropdown);
 }
 
 initialize();

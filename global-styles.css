@@ -1,5 +1,7 @@
 :root {
     --box-radius: 6px;
+    --dark-background: #171b1f;
+    --dark-weak: rgb(84, 84, 84)
 }
 
 .xmark-btn {

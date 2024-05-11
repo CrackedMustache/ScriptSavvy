@@ -1,25 +1,27 @@
-export function setAttributes(element, attributes, optionalValue = null) {
+export function setAttributes(element, attributes) {
   if (!attributes) return;
 
-  if (optionalValue !== null) {
-    element[attributes] = optionalValue;
-    return;
-  }
-
-  [...attributes].forEach(([propName, propValues]) => {
-    for (const [key, value] of Object.entries(propValues)) {
-        console.log("bug is at here:", element, propName, key, value);
-      if (key === "noKey") {
-        element[propName] = value;
-      } else {
-        element[propName][key] = value;
+  if (attributes instanceof Map) {
+    [...attributes].forEach(([attributeName, propValues]) => {
+      for (const [key, value] of Object.entries(propValues)) {
+        element[attributeName][key] = value;
       }
+    });
+  } else if (attributes instanceof Array) {
+    attributes.forEach((obj) => {
+      for (const [key, value] of Object.entries(obj)) {
+        element[key] = value;
+      }
+    });
+  } else if (attributes instanceof Object) {
+    for (const [key, value] of Object.entries(attributes)) {
+      element[key] = value;
     }
-  });
+  }
 }
 
-export function spawnElement(tag) {
-  return document.createElement(tag);
+export function spawnElement(tagName) {
+  return document.createElement(tagName);
 }
 
 export function getElementById(id) {
@@ -27,7 +29,5 @@ export function getElementById(id) {
 }
 
 export function removeElementById(id) {
-        console.log(id)
-        
-  document.getElementById(id).remove();
+  document.getElementById(id)?.remove();
 }
