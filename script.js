@@ -1,40 +1,28 @@
 import { alertLaunch } from "./debug.js";
 import { getElementById, setAttributes } from "./helpers.js";
 import {
-  createDropdown,
-  showDropdown,
-  createDropdownItems,
+  createDropdowns,
+  showScriptsDropdown,
+  createScriptsDropdown,
+  toggleDropdown,
 } from "./dropdown.js";
 
-export const selectScriptBtn = document.getElementById(
-  "ss_dropdown-trigger"
-);
+export const selectScriptBtn = document.getElementById("ss_dd_select-script_button");
 export const app = document.getElementById("ss_app");
 const textArea = getElementById("text-area_main");
 const saveButton = getElementById("ss_save-prompt");
+const moreButton = getElementById('ss_dd_more-button')
+
 let selectedToggle = false;
 
-// ## get localstorage example
-//
 
 export let SSLocalStorage;
-const toggleButton = getElementById("toggle_selected");
-toggleButton.addEventListener("click", toggleSelected);
-
-function toggleSelected() {
-
-  if (selectedToggle) {
-    selectScriptBtn.className = "select_script script_unselected";
-  } else {
-    selectScriptBtn.className = "select_script script_selected";
-  }
-
-  selectedToggle = !selectedToggle
-}
 
 
 export function loadScript(scriptName) {
-  setAttributes(selectScriptBtn, { className: "select_script script_selected" });
+  setAttributes(selectScriptBtn, {
+    className: "ss_dd_select-script_button ss_dd_select-script_selected",
+  });
   setAttributes(selectScriptBtn.querySelector('p'), [{ innerHTML: scriptName }]);
 }
 
@@ -58,9 +46,16 @@ async function initialize() {
     console.log("Error:", error);
   }
 
-  createDropdown();
+  createDropdowns(true);
 
-  selectScriptBtn.addEventListener("mouseenter", showDropdown);
+  selectScriptBtn.addEventListener("mouseenter", () => {
+    toggleDropdown('scripts', true)
+  });
+
+  moreButton.addEventListener("mouseenter", () => {
+    toggleDropdown('more', true)
+  });
+
 }
 
 initialize();

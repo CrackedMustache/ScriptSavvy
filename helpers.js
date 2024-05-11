@@ -1,6 +1,8 @@
 export function setAttributes(element, attributes) {
   if (!attributes) return;
 
+  console.log("incoming:", element)
+
   if (attributes instanceof Map) {
     [...attributes].forEach(([attributeName, propValues]) => {
       for (const [key, value] of Object.entries(propValues)) {
