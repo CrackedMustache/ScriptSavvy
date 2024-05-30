@@ -7,21 +7,17 @@ import {
 
 import { SSLocalStorage, app, loadScript } from "./script.js";
 
-const scriptDropdownContOuter = getElementById(
-  "ss_dd_script-container_outer"
-);
+const scriptDropdownContOuter = getElementById("ss_dd_script-container_outer");
 const scriptDropdownMenu = getElementById("ss_dd_script-menu");
-const moreDropdownContOuter = getElementById(
-  "ss_dd_more-container_outer"
-);
+const moreDropdownContOuter = getElementById("ss_dd_more-container_outer");
 const moreDropdownMenu = getElementById("ss_dd_more-menu");
 
 let scriptDropdownActive = false;
 let moreDropdownActive = false;
 
 export function createScriptsDropdown() {
-  for (let i = 0; i < SSLocalStorage.scripts.length; i++) {
-    for (const [key, value] of Object.entries(SSLocalStorage.scripts[i])) {
+  for (let i = 0; i < SSLocalStorage.scripts.size; i++) {
+    for (const [key, value] of SSLocalStorage.scripts.entries()) {
       const newListItem = spawnElement("ul");
 
       setAttributes(newListItem, [
@@ -54,7 +50,11 @@ export function createDropdowns(all = false) {
     new Map([["style", { top: dropdownTop }]])
   );
 
-  createScriptsDropdown(scriptDropdownMenu);
+  if (SSLocalStorage.scripts.length > 0) {
+    createScriptsDropdown();
+  } else {
+    createEmptyScriptsDropdown();
+  }
 
   if ((all = true)) {
     setAttributes(
@@ -62,6 +62,20 @@ export function createDropdowns(all = false) {
       new Map([["style", { top: dropdownTop }]])
     );
   }
+}
+
+export function createEmptyScriptsDropdown() {
+  const newListItem = spawnElement("ul");
+  setAttributes(newListItem, [
+    { id: `ss_dd_script-item_0` },
+    { innerHTML: "+ Create new script" },
+    { className: "ss_dd_script-item ss_dd-item" },
+  ]);
+  newListItem.addEventListener('click', () => {
+    
+  })
+
+  scriptDropdownMenu.appendChild(newListItem);
 }
 
 function createBackdrop() {
@@ -107,8 +121,7 @@ export function toggleDropdown(str, boolean) {
     console.log("HEY1");
     if (boolean) {
       setAttributes(moreDropdownContOuter, {
-        className:
-          "ss_dd_more-container_outer ss_dd_absolute ss_dd_appear_y ",
+        className: "ss_dd_more-container_outer ss_dd_absolute ss_dd_appear_y ",
       });
       console.log("HEY2");
       createBackdrop();
